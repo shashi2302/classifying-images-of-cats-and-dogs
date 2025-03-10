@@ -1,0 +1,65 @@
+# GitHub Instructions
+
+To push this project to GitHub:
+
+1. Create a new repository on GitHub at https://github.com/new
+
+2. Add the remote repository (replace 'yourusername' with your GitHub username):
+   ```
+   git remote add origin https://github.com/yourusername/cat-dog-classifier.git
+   ```
+
+3. Set the main branch:
+   ```
+   git branch -M main
+   ```
+
+4. Push your code:
+   ```
+   git push -u origin main
+   ```
+
+## GitHub Actions Setup
+
+To use the CI/CD pipeline, you need to add the following secrets to your GitHub repository:
+
+1. Go to your repository on GitHub
+2. Click on "Settings" > "Secrets and variables" > "Actions"
+3. Add the following secrets:
+   - `DOCKERHUB_USERNAME`: Your Docker Hub username
+   - `DOCKERHUB_TOKEN`: Your Docker Hub access token
+   - `KUBE_CONFIG`: Your Kubernetes configuration file (base64 encoded)
+
+## Running the Project
+
+After pushing to GitHub, you can run the project by following these steps:
+
+1. Data Acquisition:
+   ```
+   python3 src/data/acquire_data.py
+   ```
+
+2. Train the Model:
+   ```
+   python3 src/models/train_model.py
+   ```
+
+3. Run the API:
+   ```
+   python3 src/api/app.py
+   ```
+
+4. Generate Success Metrics Dashboard:
+   ```
+   python3 src/utils/metrics_dashboard.py
+   ```
+
+Alternatively, you can use Docker:
+```
+docker-compose up
+```
+
+Or deploy to Kubernetes:
+```
+kubectl apply -f kubernetes/
+``` 
