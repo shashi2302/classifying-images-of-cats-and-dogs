@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cat-dog-classifier
+  labels:
+    app: cat-dog-classifier
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: cat-dog-classifier
+  template:
+    metadata:
+      labels:
+        app: cat-dog-classifier
+    spec:
+      containers:
+      - name: cat-dog-classifier
+        image: ${DOCKER_REGISTRY}/cat-dog-classifier:latest
+        ports:
+        - containerPort: 5000
+        resources:
+          requests:
+            memory: "512Mi"
+            cpu: "250m"
+          limits:
+            memory: "1Gi"
+            cpu: "500m"
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 5000
+          initialDelaySeconds: 10
+          periodSeconds: 5
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 5000
+          initialDelaySeconds: 30
+          periodSeconds: 15
+        volumeMounts:
+        - name: models-volume
+          mountPath: /app/models
+      volumes:
+      - name: models-volume
+        persistentVolumeClaim:
+          claimName: models-pvc 
