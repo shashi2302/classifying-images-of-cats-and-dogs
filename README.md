@@ -38,15 +38,14 @@ This project implements a complete machine learning pipeline for classifying ima
 - Kubernetes deployment
 - Monitoring and health checks
 
-## Getting Started
 
-### Prerequisites
+Prerequisites
 
 - Python 3.8+
 - Docker
 - Kubernetes (for deployment)
 
-### Installation
+Installation
 
 1. Clone the repository
 2. Install dependencies:
